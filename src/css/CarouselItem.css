@@ -1,0 +1,39 @@
+.carousel-item {
+    width: 85%;
+    height: 38rem;
+    background: white;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 1fr;
+    justify-content: center;
+    padding: .5rem .3rem;
+    border-radius: 3rem;
+    color: black;
+}
+
+.carousel-item .desc {
+    width: 100%;
+    color: white;
+    padding: 2rem;
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: rgb(119, 111, 195);
+}
+
+.carousel-item .desc .item-category {
+    padding-top: .3rem;
+    text-transform: capitalize;
+    letter-spacing: .05rem;
+}
+
+.carousel-item .desc .item-price {
+    padding-top: 2rem;
+}
+
+.carousel-item .item-img {
+    width: 20rem;
+    place-self: center;
+}

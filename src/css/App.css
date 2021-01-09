@@ -1,0 +1,20 @@
+.main {
+  width: 99vw;
+  height: 98vh;
+  position: relative;
+  padding: 3rem 5rem 4rem 5rem;
+  border-radius: 5rem 0 0 5rem;
+}
+
+.main::before {
+  content: '';
+  position: absolute;
+  border-radius: 5rem 0 0 5rem;
+  left: 0;
+  top: 0;
+  width: 48%;
+  height: 100%;
+  z-index: -1;
+  background-color: rgb(229, 247, 255);
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+}

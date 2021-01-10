@@ -1,20 +1,28 @@
 .catalog {
     position: relative;
-    margin-top: 5rem;
     width: 65%;
 }
 
 .catalog::before {
     content: '';
     position: absolute;
-    margin-top: 5rem;
+    top: 0;
+    left: 0;
+    width: 5%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(90deg, rgb(229, 247, 255), transparent);
+}
+
+.catalog::after {
+    content: '';
+    position: absolute;
     top: 0;
     right: 0;
     width: 5%;
     height: 100%;
     z-index: 1;
-    background-color: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(.2rem);
+    background: linear-gradient(90deg, transparent, white);
 }
 
 .heading {
@@ -22,11 +30,12 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 3rem;
+    color: var(--primary-color);
 }
 
 .catalog .heading h1 {
+    z-index: 2;
     font-size: 4rem;
-    color: var(--primary-color);
 }
 
 button {
@@ -34,6 +43,7 @@ button {
     outline: none;
     cursor: pointer;
     background: white;
+    z-index: 2;
 }
 
 .heading .order{

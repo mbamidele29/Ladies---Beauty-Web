@@ -1,12 +1,15 @@
 import '../css/nav.css';
 import { Link } from 'react-router-dom';
-import { FaShoppingCart, FaBars } from 'react-icons/fa';
+import { FaShoppingCart, FaBars, FaGem } from 'react-icons/fa';
 
 export default function Nav(){
     return (
         <>
         <div className="nav">
-            <h2 className="Logo">Ladies</h2>
+            <div className="logo">
+                <h2>Ladies</h2>
+                <FaGem />
+            </div>
 
             <div className="nav-items">
                 <form>

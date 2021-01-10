@@ -1,0 +1,66 @@
+.accessories {
+    position: relative;
+    width: 35%;
+    height: inherit;
+    margin-left: 2rem;
+    padding: 0 4rem;
+}
+
+.accessories > h2 {
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+    font-size: 2rem;
+}
+
+.accessories-items {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.accesories-item {
+    position: relative;
+    display: flex;
+    width: 90%;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    border-radius: 2rem;
+    margin: 1rem 0;
+    color: var(--primary-color);
+    border: .1rem solid var(--primary-color);
+}
+
+.accesories-item .accesories-price {
+    font-size: 2rem;
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    writing-mode: vertical-rl;
+    background-color: var(--primary-color);
+    padding: 2.5rem 1rem;
+    border-radius: 4rem;
+    transform-origin: (0, 0);
+    transform: rotate(180deg);
+    display: none;
+}
+
+.accesories-item .accessories-image {
+    width: 8rem;
+    height: 8rem;
+    margin-right: 2rem;
+    background-color: rgb(235, 229, 246);
+    border-radius: 50%;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.accesories-item.active {
+    color: white;
+    width: 100%;
+    background-color: var(--secondary-color);
+}
+
+.accesories-item.active .accesories-price {
+    display: initial;
+}

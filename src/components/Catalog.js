@@ -25,6 +25,11 @@ export default class Catalog extends Component {
         super(props);
         this.next=this.next.bind(this);
         this.previous=this.previous.bind(this);
+
+        this.state={
+            prevSlide:0,
+            activeSlide: 0
+        }
     }
 
     next() {
@@ -32,12 +37,6 @@ export default class Catalog extends Component {
     }
     previous() {
         this.slider.slickPrev();
-    }
-
-    nullFunction(){
-        return <div style={{
-            display: 'none',
-        }}></div>;
     }
 
     render() {
@@ -49,8 +48,8 @@ export default class Catalog extends Component {
             centerPadding: "70px",
             slidesToShow: 2,
             speed: 500,
-            nextArrow: <nullFunction />,
-            prevArrow: <nullFunction />
+            beforeChange: (current, next) => this.setState({ prevSlide: next }),
+            afterChange: current => this.setState({ activeSlide: current })
           };
 
           const { products } = this.props || [];
@@ -67,7 +66,7 @@ export default class Catalog extends Component {
                 <Slider ref={c => (this.slider = c)} {...settings}>
                     {
                         products.map((item, index)=>{
-                            return <CarouselItem product={item} key={index} />
+                            return <CarouselItem product={item} key={index} active={this.state.activeSlide+1 === index ? true : false} />
                         })
                     }
                 </Slider>

@@ -3,12 +3,16 @@ import Catalog from './components/Catalog';
 import './css/App.css';
 
 import { data } from './utils/data';
+import Accessories from './components/Accessories';
 
 function App() {
   return (
     <div className="main">
       <Nav />
-      <Catalog products={data} />
+      <div className="mart">
+        <Catalog products={data} />
+        <Accessories product={data[0]} />
+      </div>
     </div>
   );
 }

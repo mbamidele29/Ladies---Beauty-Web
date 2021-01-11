@@ -2,7 +2,10 @@ import '../css/nav.css';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaBars, FaGem } from 'react-icons/fa';
 
-export default function Nav(){
+export default function Nav({cart}){
+    const showCart=()=>{
+        console.log("CART", cart);
+    }
     return (
         <>
         <div className="nav">
@@ -15,7 +18,7 @@ export default function Nav(){
                 <form>
                     <input className="search" type="text" placeholder="Search" />
                 </form>
-                <Link title="Cart" to="#" className="icon-link cart"><FaShoppingCart /></Link>
+                <Link title="Cart" to="#" className="icon-link cart" onClick={showCart}><FaShoppingCart /><span className="count">{cart.length}</span></Link>
                 <Link title="Menu" to="#" className="icon-link menu"><FaBars /></Link>
             </div>
         </div>

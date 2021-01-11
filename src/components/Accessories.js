@@ -1,42 +1,43 @@
 import '../css/Accessories.css';
 import AccessoryItem from './AccessoryItem';
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
+import { useState } from 'react';
 
-export default function Accessories({product}) {
-    const settings = {
-        dots: true,
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        vertical: true,
-        verticalSwiping: true,
-        swipeToSlide: true,
-        beforeChange: function(currentSlide, nextSlide) {
-          console.log("before change", currentSlide, nextSlide);
-        },
-        afterChange: function(currentSlide) {
-          console.log("after change", currentSlide);
-        }
-    };
+export default function Accessories({product, cart, updateCartAccessory}) {
+    
+    const [active, setActive]=useState(-1);
+    const onClick = (accessory_id) => {
+        setActive(accessory_id);
+    }
+
     return (
         <div className="accessories">
             <h2>Accessories</h2>
             
             <div className="accessories-items">
-                {/* <Slider {...settings}>
-                    {
-                        product.accessories.map((accessory, index)=>{
-                            return <AccessoryItem key={accessory.id} accessory={accessory} active={index===1 ? true : false} />
-                        })
-                    }
-                </Slider> */}
                 {
-                    product.accessories.map((accessory, index)=>{
-                        return <AccessoryItem key={accessory.id} accessory={accessory} active={index===1 ? true : false} />
-                    })
+                    (product && product.accessories.length>0) ?
+                        product.accessories.map((accessory, index)=>{
+                            let cartAccessories=[];
+                            const cartItem = cart.filter(c => {
+                                return c.id === product.id;
+                            })
+
+                            cartAccessories= cartItem.length > 0 ? 
+                                (cartItem[0].accessories.filter(a => {
+                                    return a.id === accessory.id;
+                                })) : [];
+                            return <AccessoryItem 
+                                        key={accessory.id} 
+                                        product={product}
+                                        cart={cartAccessories[0]}
+                                        accessory={accessory} 
+                                        active={active} 
+                                        onClick={onClick} 
+                                        updateCartAccessory={updateCartAccessory} 
+                                    />
+                        })
+                    : null
                 }
             </div>
         </div>

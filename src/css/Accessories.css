@@ -30,6 +30,7 @@
     margin: 1rem 0;
     color: var(--primary-color);
     border: .1rem solid var(--primary-color);
+    transition: all .3s ease-in;
 }
 
 .accesories-item .accesories-price {
@@ -63,4 +64,42 @@
 
 .accesories-item.active .accesories-price {
     display: initial;
+}
+
+.accesories-item.active  .desc .item-qty {
+    display: flex;
+}
+
+.accesories-item .desc .item-qty {
+    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    display: none;
+}
+
+.accesories-item .desc .item-qty .qty-control {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: .1rem solid white;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    margin: 0 .2rem;
+    cursor: pointer;
+}
+
+.accesories-item .qty-control.pos {
+    color: greenyellow;
+}
+
+.accesories-item .qty-control.neg {
+    color: red;
+}
+
+.accesories-item .desc .item-qty .quantity {
+    color: white;
+    margin: 0 .2rem;
 }

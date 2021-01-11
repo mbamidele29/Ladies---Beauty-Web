@@ -12,9 +12,9 @@ import { Component } from 'react';
 
 
 
-function CarouselButton({direction='', onClick}){
+function CarouselButton({classN='', direction='', onClick}){
     return (
-        <button className="icon-link" title={direction} onClick={onClick}>
+        <button className={classN} title={direction} onClick={onClick}>
             {direction.toLowerCase() === 'right' ? <FaArrowRight /> : <FaArrowLeft />}
         </button>
     );
@@ -25,10 +25,10 @@ export default class Catalog extends Component {
         super(props);
         this.next=this.next.bind(this);
         this.previous=this.previous.bind(this);
+        this.updateActiveProduct=this.updateActiveProduct.bind(this);
 
         this.state={
-            prevSlide:0,
-            activeSlide: 0
+            active: 1,
         }
     }
 
@@ -37,6 +37,12 @@ export default class Catalog extends Component {
     }
     previous() {
         this.slider.slickPrev();
+    }
+
+    updateActiveProduct(productId){
+        this.setState({
+            active: productId,
+        })
     }
 
     render() {
@@ -48,8 +54,6 @@ export default class Catalog extends Component {
             centerPadding: "70px",
             slidesToShow: 2,
             speed: 500,
-            beforeChange: (current, next) => this.setState({ prevSlide: next }),
-            afterChange: current => this.setState({ activeSlide: current })
           };
 
           const { products } = this.props || [];
@@ -59,14 +63,25 @@ export default class Catalog extends Component {
                     <h1 className="title">Best Sellers</h1>
                     <Link className="icon-link order" title="order" to="#"><FaSort /></Link>
                     <div className="carousel-button">
-                        <CarouselButton direction="left" onClick={this.previous} />
-                        <CarouselButton direction="right" onClick={this.next} />
+                        <CarouselButton classN="icon-link left" direction="left" onClick={this.previous} />
+                        <CarouselButton classN="icon-link right" direction="right" onClick={this.next} />
                     </div>
                 </div>
                 <Slider ref={c => (this.slider = c)} {...settings}>
                     {
                         products.map((item, index)=>{
-                            return <CarouselItem product={item} key={index} active={this.state.activeSlide+1 === index ? true : false} />
+                            const cartItem = this.props.cart.filter(c => {
+                                return c.id === item.id;
+                            })
+                            return <CarouselItem 
+                                        key={index}
+                                        cart={cartItem[0]}
+                                        updateCartProduct={this.props.updateCartProduct} 
+                                        updateCurrentProduct={this.props.updateCurrentProduct} 
+                                        product={item}
+                                        updateActiveProduct={this.updateActiveProduct}
+                                        active={this.state.active === item.id ? true : false}
+                                    />
                         })
                     }
                 </Slider>

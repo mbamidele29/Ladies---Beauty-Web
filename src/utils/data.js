@@ -5,6 +5,7 @@ export const data =[
         "category": "Grape Fruit",
         "price" : "$16,00",
         "image": "item-2.png",
+        "quantity": 4,
         "accessories" : [
             {
                 "id":1,
@@ -35,6 +36,7 @@ export const data =[
         "category": "Rice Bran Oil",
         "price" : "$19,00",
         "image": "item-2.png",
+        "quantity": 4,
         "accessories" : [
             {
                 "id":1,
@@ -72,6 +74,7 @@ export const data =[
         "category": "Grape Fruit",
         "price" : "$16,00",
         "image": "item-2.png",
+        "quantity": 4,
         "accessories" : [
             {
                 "id":1,
@@ -102,6 +105,7 @@ export const data =[
         "category": "Bran Oil",
         "price" : "$19,00",
         "image": "item-2.png",
+        "quantity": 4,
         "accessories" : [
             {
                 "id":1,

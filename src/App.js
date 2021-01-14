@@ -4,8 +4,9 @@ import Nav from './components/Nav';
 import Catalog from './components/Catalog';
 import './css/App.css';
 
-import { data } from './utils/data';
+import { data as rawData } from './utils/data';
 import Accessories from './components/Accessories';
+import Checkout from "./components/Checkout";
 
 function filterProduct(products, productId) {
   const item = products.filter((product)=>product.id===productId);
@@ -13,88 +14,64 @@ function filterProduct(products, productId) {
 }
 
 function App() {
-  const [cart, setCart]=useState([]);
+  const [showCart, setShowCart]=useState(false);
+  const [cart, setCart]=useState(0);
+  const [data, setData]=useState(rawData);
   const [currentProduct, setCurrentProduct]=useState(1);
 
   function updateCartProduct(productId, count){
-    let found=false;
-    let newCart=[];
-    cart.forEach(item => {
+    let newData=[];
+    let newCart=0;
+    data.forEach(item => {
         if(item.id===productId){
-          found=true;
-          let qty=item.quantity + count;
-          if(qty>10)qty=10;
-          if(qty>0){
-            const newItem ={...item, "quantity": qty};
-            newCart.push(newItem);
-          }
-        }else newCart.push(item);
+          let qty=item.quantityInCart + count;
+          if(qty>item.quantityAvailable)qty=item.quantityAvailable;
+          if(qty<0)qty=0;
+
+          const newItem ={...item, "quantityInCart": qty};
+          newData.push(newItem);
+        }else newData.push(item);
     });
-    
-    if(!found){
-      if(count === 1){
-        newCart=[...newCart, {
-          "id": productId,
-          "quantity": count,
-          "accessories": [],
-        }];
-      }
-    }
+
+    newData.forEach(item=>{
+      if(item.quantityInCart > 0)newCart++;
+    })
+
     setCart(newCart);
+    setData(newData);
   }
   
   function updateCartAccessory(productId, accessoryId, count){
-    let newCart=[];
-    let foundCart=null;
-    cart.forEach(item => {
-        if(item.id===productId){
-          foundCart=item;
-        }else newCart.push(item);
+    let newData=[];
+    let newAccessories=[];
+    data.forEach(item => {
+        if(item.id===productId && item.quantityInCart>0){
+          let accessories=item.accessories;
+          accessories.forEach(accessory => {
+            if(accessory.id===accessoryId){
+              if(!accessory.quantityInCart)accessory.quantityInCart=0;
+              let qty=accessory.quantityInCart + count;
+              if(qty<0)qty=0;
+              newAccessories.push({...accessory , "quantityInCart": qty});
+            }else newAccessories.push(accessory);
+          });
+          const newItem ={...item, "accessories": newAccessories};
+          newData.push(newItem);
+        }else newData.push(item);
     });
-
-
-    if(foundCart != null){
-
-      let found=false;
-      let newAccessories=[];
-      const accessories=foundCart.accessories;
-
-      accessories.forEach(item => {
-        if(item.id===accessoryId){
-          found=true;
-          let qty=item.quantity + count;
-          if(qty>10)qty=10;
-          if(qty>0){
-            const newItem ={...item, "quantity": qty};
-            newAccessories.push(newItem);
-          }
-        }else newAccessories.push(item);
-      });
-
-      if(!found){
-        if(count === 1){
-          newAccessories=[...newAccessories, {
-            "id": accessoryId,
-            "quantity": count,
-            "accessories": [],
-          }];
-        }
-      }
-
-      foundCart.accessories=newAccessories;
-      
-    
-      newCart.push(foundCart);
-      setCart(newCart);
-    }
+    setData(newData);
   }
 
+  const toggleCart =()=>{
+    setShowCart(!showCart);
+  }
   return (
     <div className="main">
-      <Nav cart={cart} />
+      <Nav cart={cart} toggleCart={toggleCart} />
       <div className="mart">
-        <Catalog products={data} cart={cart} updateCurrentProduct={setCurrentProduct} updateCartProduct={updateCartProduct} />
-        <Accessories product={filterProduct(data, currentProduct)[0]} cart={cart} updateCartAccessory={updateCartAccessory} />
+        <Catalog products={data} updateCurrentProduct={setCurrentProduct} updateCartProduct={updateCartProduct} />
+        <Accessories product={filterProduct(data, currentProduct)[0]} updateCartAccessory={updateCartAccessory} />
+        <Checkout products={data} active={showCart} />
       </div>
     </div>
   );

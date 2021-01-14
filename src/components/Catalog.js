@@ -70,12 +70,8 @@ export default class Catalog extends Component {
                 <Slider ref={c => (this.slider = c)} {...settings}>
                     {
                         products.map((item, index)=>{
-                            const cartItem = this.props.cart.filter(c => {
-                                return c.id === item.id;
-                            })
                             return <CarouselItem 
                                         key={index}
-                                        cart={cartItem[0]}
                                         updateCartProduct={this.props.updateCartProduct} 
                                         updateCurrentProduct={this.props.updateCurrentProduct} 
                                         product={item}

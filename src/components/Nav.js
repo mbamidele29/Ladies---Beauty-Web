@@ -2,9 +2,9 @@ import '../css/nav.css';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaBars, FaGem } from 'react-icons/fa';
 
-export default function Nav({cart}){
+export default function Nav({cart, toggleCart}){
     const showCart=()=>{
-        console.log("CART", cart);
+        toggleCart();
     }
     return (
         <>
@@ -18,7 +18,7 @@ export default function Nav({cart}){
                 <form>
                     <input className="search" type="text" placeholder="Search" />
                 </form>
-                <Link title="Cart" to="#" className="icon-link cart" onClick={showCart}><FaShoppingCart /><span className="count">{cart.length}</span></Link>
+                <Link title="Cart" to="#" className="icon-link cart" onClick={showCart}><FaShoppingCart /><span className="count">{cart}</span></Link>
                 <Link title="Menu" to="#" className="icon-link menu"><FaBars /></Link>
             </div>
         </div>

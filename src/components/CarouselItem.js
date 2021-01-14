@@ -1,6 +1,6 @@
 import '../css/CarouselItem.css';
 
-export default function CarouselItem({product, cart, active, updateCurrentProduct, updateCartProduct, updateActiveProduct}){
+export default function CarouselItem({product, active, updateCurrentProduct, updateCartProduct, updateActiveProduct}){
     const updateProduct = ()=>{
         updateActiveProduct(product.id);
         updateCurrentProduct(product.id);
@@ -17,10 +17,10 @@ export default function CarouselItem({product, cart, active, updateCurrentProduc
             <div className="desc">
                 <h1 className="item-name">{ product.name }</h1>
                 <p className="item-category">{ product.category }</p>
-                <p className="item-price">{ product.price }</p>
+                <p className="item-price">${ product.price }</p>
                 <div className="item-qty">
                     <div className="qty-control neg" onClick={removeItem}>-</div>
-                    <p className="quantity">{cart ? cart.quantity : 0}</p>
+                    <p className="quantity">{product.quantityInCart ? product.quantityInCart : 0}</p>
                     <div className="qty-control pos" onClick={addItem}>+</div>
                 </div>
             </div> 

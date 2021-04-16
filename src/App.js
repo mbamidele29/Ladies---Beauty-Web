@@ -67,6 +67,9 @@ function App() {
   }
   return (
     <div className="main">
+      <div className="curtain">
+        <h1>Screen size is too small</h1>
+      </div>
       <Nav cart={cart} toggleCart={toggleCart} />
       <div className="mart">
         <Catalog products={data} updateCurrentProduct={setCurrentProduct} updateCartProduct={updateCartProduct} />

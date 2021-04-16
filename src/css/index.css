@@ -41,3 +41,22 @@ a {
     font-size: 2rem;
     color: var(--primary-color);
 }
+
+.curtain {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: white;
+  z-index: 99;
+}
+
+@media screen and (max-width: 850px) {
+  .curtain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } 
+}
